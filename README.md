@@ -4,6 +4,8 @@
 ## INTRODUCTION
 This project will be looking at several datasets that will be useful for building a comprehensive equity trading and real estate investing strategy.  First, we will analyze the SEC 13F filings of successful hedge funds to determine the stocks and sectors that are most heavily invested in the quarter analyzed.  Next we will analyze data sets from several public websites to determine if a correlation exists between job postings in a US region and housing market conditions.  These two analyses could help investment professionals open positions in equities and real estate investing.
 
+The housing sector is one of the largest and most important sectors of the U.S. economy.  This indicator can provide broad inference to the state of the US economy. (need reference)
+
 ## THE DATA
 The following data sets will be used:
 * Job postings from Indeed.com
@@ -11,6 +13,10 @@ The following data sets will be used:
 * FRED (Federal Reserve Economic Data)oUS bureau of labor statistics 
 * 13F filings for popular hedge funds from WhaleWisdom.com
 * Zillow data for real estate listings
+* google searches
+* zillow web traffic?
+* real estate ETF positions
+* movement from high population to low population regions
 
 This data will be cleaned and categorized for the appropriate analysis.
 
