@@ -1,15 +1,16 @@
-
 import sys
 import os
-os.environ['QT_QPA_PLATFORM']='offscreen'
-os.environ['QT_STYLE_OVERRIDE']='0'
+
+#os.environ['QT_QPA_PLATFORM']='offscreen'
+#os.environ['QT_STYLE_OVERRIDE']='0'
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import geopandas
+#import geopandas as gpd
 import matplotlib.pyplot as plt
 
-from PyQt5 import*
+from PyQt5 import *
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import*
@@ -31,6 +32,10 @@ from chloroplethwidget import chloroplethWidget
 cwd = os.getcwd()
 os.chdir(cwd)
 
+app=QApplication([])
+window=AppMain()
+window.show()
+app.exec()
 
 def show_exception_and_exit(exc_type,exc_value,tb):
     import traceback
@@ -44,7 +49,7 @@ sys.excepthook=show_exception_and_exit
 class AppMain(QMainWindow):
 
     def __init__(self):
-
+        
         QMainWindow.__init__(self)
 
         loadUi(r'main.ui',self)
@@ -65,24 +70,24 @@ class AppMain(QMainWindow):
     def correlate(self):
         
         #code for calculating chloropleth
-        csa = geopandas.read_file('shapefiles/cb_2018_us_csa_20m.shp')
-        states = geopandas.read_file('shapefiles/cb_2018_us_state_20m.shp')
+       # csa = gpd.read_file('shapefiles/cb_2018_us_csa_20m.shp')
+       # states = gpd.read_file('shapefiles/cb_2018_us_state_20m.shp')
 
-        csa = csa.to_crs("EPSG:3395")
-        states = states.to_crs("EPSG:3395")
+       # csa = csa.to_crs("EPSG:3395")
+      #  states = states.to_crs("EPSG:3395")
         
 
         #Alaska and Hawaii excluded due to lack of CSA
-        states=states[states['NAME'] != 'Alaska']
-        states=states[states['NAME'] != 'Hawaii']
+     #   states=states[states['NAME'] != 'Alaska']
+      #  states=states[states['NAME'] != 'Hawaii']
 
-        us_boundary_map = states.boundary.plot(figsize=(18, 12),color="Black", linewidth=.1)
+      #  us_boundary_map = states.boundary.plot(figsize=(18, 12),color="Black", linewidth=.1)
 
 
-        self.chloroplethWidget.canvas.axes.cla()
-        self.chloroplethWidget.canvas.axes.states.boundary.plot(figsize=(18, 12),color="Black", linewidth=.1)
-        self.chloroplethWidget.canvas.axes.csa.plot(ax=us_boundary_map, cmap='magma')
-        self.chloroplethWidget.canvas.draw()
+       # self.chloroplethWidget.canvas.axes.cla()
+       # self.chloroplethWidget.canvas.axes.states.boundary.plot(figsize=(18, 12),color="Black", linewidth=.1)
+      #  self.chloroplethWidget.canvas.axes.csa.plot(ax=us_boundary_map, cmap='magma')
+      #  self.chloroplethWidget.canvas.draw()
         
         #Merge the cases data to the spatial data
         #new_df=data.merge(states, how='left', on='MSA')
@@ -94,17 +99,9 @@ class AppMain(QMainWindow):
         #csa[csa['NAME'] == 'Des Moines-Ames-West Des Moines, IA'].plot(figsize=(12, 12))
 
 
-class EmittingStream(QtCore.QObject):
-    textWritten = QtCore.pyqtSignal(str)
-
-    def write(self, text):
-        self.textWritten.emit(str(text))
 
 
 app=QApplication([])
 window=AppMain()
 window.show()
-
-#win = QMainWindow()
-#win.show()
-app.exec_()
+app.exec()
