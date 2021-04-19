@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>661</width>
-    <height>609</height>
+    <width>970</width>
+    <height>863</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
    <widget class="QPushButton" name="calculateButton">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>780</x>
       <y>220</y>
       <width>131</width>
       <height>41</height>
@@ -50,12 +50,12 @@
      <rect>
       <x>30</x>
       <y>220</y>
-      <width>461</width>
-      <height>311</height>
+      <width>681</width>
+      <height>551</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -66,8 +66,8 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>441</width>
-        <height>311</height>
+        <width>631</width>
+        <height>471</height>
        </rect>
       </property>
      </widget>
@@ -77,11 +77,26 @@
       <string>Chart</string>
      </attribute>
     </widget>
+    <widget class="QWidget" name="Map">
+     <attribute name="title">
+      <string>Map</string>
+     </attribute>
+     <widget class="folium" name="foliumWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>19</y>
+        <width>651</width>
+        <height>491</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QPushButton" name="exitButton">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>780</x>
       <y>310</y>
       <width>131</width>
       <height>41</height>
@@ -99,7 +114,7 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>780</x>
       <y>50</y>
       <width>121</width>
       <height>31</height>
@@ -109,7 +124,7 @@
    <widget class="QComboBox" name="comboBox_2">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>780</x>
       <y>120</y>
       <width>121</width>
       <height>31</height>
@@ -119,7 +134,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>780</x>
       <y>90</y>
       <width>71</width>
       <height>21</height>
@@ -132,7 +147,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>780</x>
       <y>20</y>
       <width>71</width>
       <height>21</height>
@@ -161,8 +176,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>661</width>
-     <height>20</height>
+     <width>970</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -173,6 +188,12 @@
    <class>chloroplethWidget</class>
    <extends>QWidget</extends>
    <header>chloroplethwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>folium</class>
+   <extends>QWidget</extends>
+   <header>folium.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

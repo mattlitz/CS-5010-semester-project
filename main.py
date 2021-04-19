@@ -9,15 +9,16 @@ import pandas as pd
 import seaborn as sns
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import folium
 
 from PyQt5 import *
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QMainWindow
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import*
-from PyQt5 import QtCore,QtGui,QtWidgets
+from PyQt5 import QtCore,QtGui,QtWidgets, QtWebEngineWidgets
 #from PyQt5.QtGui import QPixmap
 
-from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+
 from sklearn.linear_model import LassoCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures #OneHotEncoder #categorical data
@@ -78,12 +79,15 @@ class AppMain(QMainWindow):
         states=states[states['NAME'] != 'Alaska']
         states=states[states['NAME'] != 'Hawaii']
 
-        #us_boundary_map = states.boundary.plot(figsize=(18, 12),color="Black", linewidth=.1)
+        us_boundary_map = states.boundary.plot(figsize=(5, 5),color="Black", linewidth=.1)
 
 
-        self.chloroplethWidget.canvas.cla()
-        self.chloroplethWidget.canvas.states.boundary.plot(figsize=(18, 12),color="Black", linewidth=.1)
-        self.chloroplethWidget.canvas.csa.plot(ax=us_boundary_map, cmap='magma')
+        self.chloroplethWidget.canvas.axes.cla()
+        
+        #self.chloroplethWidget.canvas.axes.us_boundary_map
+        #self.chloroplethWidget.canvas.axes.states.boundary.plot(color="Black", linewidth=.1)
+        self.chloroplethWidget.canvas.axes.plot(ax=us_boundary_map, cmap='magma', data=csa)
+        self.chloroplethWidget.canvas.axes.toolbar = NavigationToolbar(self.chloroplethWidget.canvas, self)
         self.chloroplethWidget.canvas.draw()
         
         #Merge the cases data to the spatial data
@@ -94,6 +98,8 @@ class AppMain(QMainWindow):
 
         #print(cbsa)
         #csa[csa['NAME'] == 'Des Moines-Ames-West Des Moines, IA'].plot(figsize=(12, 12))
+
+
 
 app=QApplication([])
 window=AppMain()
