@@ -9,6 +9,8 @@ import pandas as pd
 import seaborn as sns
 import geopandas as gpd
 import matplotlib.pyplot as plt
+from datetime import datetime
+import scipy.stats as stats
 import folium
 
 from PyQt5 import *
@@ -27,7 +29,10 @@ from sklearn.metrics import mean_squared_error, make_scorer, accuracy_score
 import warnings
 warnings.filterwarnings('ignore')
 
+from fredapi import Fred
+
 from chloroplethwidget import chloroplethWidget
+#from foliumwidget import foliumWidget
 
 # initial directory 
 cwd = os.getcwd()
@@ -51,6 +56,8 @@ class AppMain(QMainWindow):
 
         loadUi(r'main.ui',self)
 
+        
+
         self.setWindowTitle("Housing Sector Market Performance Analysis")
         #self.setWindowIcon(QtGui.QIcon('C:\logo.jpg'))
 
@@ -59,12 +66,51 @@ class AppMain(QMainWindow):
 
         #sys.stdout = EmittingStream(textWritten=self.normalOutputWritten)
        
-        #initialize data sets
-        #self.alloy_comboBox.addItem("Ti-6Al-4V")
-        #self.alloy_comboBox.addItem("Mg AZ80A")
+        #initialize FRED data sets
+        self.combo_FRED_1.addItem("SP500")
+        self.combo_FRED_1.addItem("WM1NS") #M1 Stock
+        self.combo_FRED_1.addItem("CSUSHPISA") #S&P/Case-Shiller U.S. National Home Price Index
+        self.combo_FRED_1.addItem("CPIAUCSL") #Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
+        self.combo_FRED_1.addItem("WM2NS") #M2 Money Stock
+        self.combo_FRED_1.addItem("EFFR") #Effective Federal Funds Rate
+        self.combo_FRED_1.addItem("DGS10") #10-Year Treasury Constant Maturity Rate
+        self.combo_FRED_1.addItem("UNRATE") #Unemployment Rate maybe look at CA?
+        self.combo_FRED_1.addItem("MORTGAGE30US") #30-Year Fixed Rate Mortgage Average in the United States
+        self.combo_FRED_1.addItem("USD3MTD156N") #3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar
+        self.combo_FRED_1.addItem("MEHOINUSA672N") #Real Median Household Income in the United States
+        self.combo_FRED_1.addItem("PSAVERT") #Personal Saving Rate
+        self.combo_FRED_1.addItem("DCOILWTICO") #Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma
+        self.combo_FRED_1.addItem("GFDEBTN") #Federal Debt: Total Public Debt
+        self.combo_FRED_1.addItem("BUSLOANS") #Commercial and Industrial Loans, All Commercial Banks
+        self.combo_FRED_1.addItem("DAAA") #Moody's Seasoned Aaa Corporate Bond Yield
+
+        #initialize FRED data sets
+        self.combo_FRED_2.addItem("SP500")
+        self.combo_FRED_2.addItem("WM1NS") #M1 Stock
+        self.combo_FRED_2.addItem("CSUSHPISA") #S&P/Case-Shiller U.S. National Home Price Index
+        self.combo_FRED_2.addItem("CPIAUCSL") #Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
+        self.combo_FRED_2.addItem("WM2NS") #M2 Money Stock
+        self.combo_FRED_2.addItem("EFFR") #Effective Federal Funds Rate
+        self.combo_FRED_2.addItem("DGS10") #10-Year Treasury Constant Maturity Rate
+        self.combo_FRED_2.addItem("UNRATE") #Unemployment Rate maybe look at CA?
+        self.combo_FRED_2.addItem("MORTGAGE30US") #30-Year Fixed Rate Mortgage Average in the United States
+        self.combo_FRED_2.addItem("USD3MTD156N") #3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar
+        self.combo_FRED_2.addItem("MEHOINUSA672N") #Real Median Household Income in the United States
+        self.combo_FRED_2.addItem("PSAVERT") #Personal Saving Rate
+        self.combo_FRED_2.addItem("DCOILWTICO") #Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma
+        self.combo_FRED_2.addItem("GFDEBTN") #Federal Debt: Total Public Debt
+        self.combo_FRED_2.addItem("BUSLOANS") #Commercial and Industrial Loans, All Commercial Banks
+        self.combo_FRED_2.addItem("DAAA") #Moody's Seasoned Aaa Corporate Bond Yield
+
+        year=['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021']
+
+        self.comboYearStart.addItems(year)
+        self.comboYearEnd.addItems(year)
 
 
     def correlate(self):
+
+
 
               
         #code for calculating chloropleth
@@ -79,15 +125,52 @@ class AppMain(QMainWindow):
         states=states[states['NAME'] != 'Alaska']
         states=states[states['NAME'] != 'Hawaii']
 
-        us_boundary_map = states.boundary.plot(figsize=(5, 5),color="Black", linewidth=.1)
+        #us_boundary_map = states.boundary.plot(figsize=(5, 5),color="Black", linewidth=.1)
 
+        #convert text input times to numeric
+        year_start = datetime.strptime(self.comboYearStart.currentText(), '%Y')
+        year_end = datetime.strptime(self.comboYearEnd.currentText(), '%Y')
+
+        fred_1 = Fred(api_key='d7f545fe7858da4279909dd26a7b28cc')
+        fred_2 = Fred(api_key='d7f545fe7858da4279909dd26a7b28cc')
+
+
+        
+        data_1 = fred_1.get_series(''+ str(self.combo_FRED_1.currentText()) +'', observation_start=''+ str(year_start.date()) +'', observation_end=''+ str(year_end.date()) +'')
+        data_2 = fred_2.get_series(''+ str(self.combo_FRED_2.currentText()) +'', observation_start=''+ str(year_start.date()) +'', observation_end=''+ str(year_end.date()) +'')
+        
+        #need to sample by month
+        #data_1=data_1.resample('30D').mean()
+        #data_2=data_2.resample('30D').mean()
+
+        df=pd.concat([data_1,data_2], axis=1).resample('30D').mean().dropna()
+        print(df)
+        print(df.tail())
+
+
+
+        print(data_1.size)
+        print(data_2.size)
+
+        r, p = stats.pearsonr(df.iloc[:,0],df.iloc[:,1])
+        print(r)
+        print(p)
+
+        
+        
 
         self.chloroplethWidget.canvas.axes.cla()
-        
+        self.chloroplethWidget.canvas.ax2.cla()
+        #self.chloroplethWidget.canvas.ax2=self.chloroplethWidget.canvas.axes.twinx()
         #self.chloroplethWidget.canvas.axes.us_boundary_map
         #self.chloroplethWidget.canvas.axes.states.boundary.plot(color="Black", linewidth=.1)
-        self.chloroplethWidget.canvas.axes.plot(ax=us_boundary_map, cmap='magma', data=csa)
-        self.chloroplethWidget.canvas.axes.toolbar = NavigationToolbar(self.chloroplethWidget.canvas, self)
+        #self.chloroplethWidget.canvas.axes.plot(ax=us_boundary_map, cmap='magma', data=csa)
+        #self.chloroplethWidget.canvas.axes.toolbar = NavigationToolbar(self.chloroplethWidget.canvas, self)
+        self.chloroplethWidget.canvas.axes.plot(data_1, marker='.')
+        self.chloroplethWidget.canvas.ax2.plot(data_2, marker='.', color = 'green')
+        #self.chloroplethWidget.canvas.axes.plot(df.index,df['0'], marker='.')
+        #self.chloroplethWidget.canvas.ax2.plot(df.index,df['1'], marker='.', color = 'green')
+        self.chloroplethWidget.canvas.axes.set(title=f"Correlation (Pearson) r = {r}")
         self.chloroplethWidget.canvas.draw()
         
         #Merge the cases data to the spatial data

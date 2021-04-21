@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
+    <width>950</width>
     <height>863</height>
    </rect>
   </property>
@@ -14,19 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QSlider" name="horizontalSlider">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>120</y>
-      <width>281</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="calculateButton">
     <property name="geometry">
      <rect>
@@ -49,48 +36,38 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>220</y>
-      <width>681</width>
-      <height>551</height>
+      <y>280</y>
+      <width>711</width>
+      <height>531</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>US Map</string>
+      <string>Correlation Line Chart</string>
      </attribute>
      <widget class="chloroplethWidget" name="chloroplethWidget" native="true">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
+        <x>20</x>
+        <y>20</y>
         <width>631</width>
-        <height>471</height>
+        <height>491</height>
        </rect>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Chart</string>
+      <string>Bar Chart</string>
      </attribute>
     </widget>
     <widget class="QWidget" name="Map">
      <attribute name="title">
       <string>Map</string>
      </attribute>
-     <widget class="folium" name="foliumWidget" native="true">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>19</y>
-        <width>651</width>
-        <height>491</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="exitButton">
@@ -111,24 +88,19 @@
      <string>Exit</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="combo_FRED_2">
     <property name="geometry">
      <rect>
       <x>780</x>
-      <y>50</y>
-      <width>121</width>
+      <y>110</y>
+      <width>141</width>
       <height>31</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox_2">
-    <property name="geometry">
-     <rect>
-      <x>780</x>
-      <y>120</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -136,12 +108,12 @@
      <rect>
       <x>780</x>
       <y>90</y>
-      <width>71</width>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Data Set 2</string>
+     <string>FRED Data Set 2</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -149,25 +121,113 @@
      <rect>
       <x>780</x>
       <y>20</y>
-      <width>71</width>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Data Set 1</string>
+     <string>FRED Data Set 1</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>100</y>
-      <width>71</width>
+      <x>550</x>
+      <y>20</y>
+      <width>131</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Time Range</string>
+     <string>Time Range - Year Start</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="combo_FRED_1">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>50</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>90</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Time Range - Year End</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboYearStart">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>50</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboYearEnd">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>120</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>30</y>
+      <width>431</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Available FRED Data Sets:
+
+SP500 - S&amp;P 500 Index
+WM1NS - M1 Stock
+CSUSHPISA - S&amp;P/Case-Shiller U.S. National Home Price Index
+CPIAUCSL - Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
+WM2NS - M2 Money Stock
+EFFR - Effective Federal Funds Rate
+DGS10 - 10-Year Treasury Constant Maturity Rate
+UNRATE - Unemployment Rate
+MORTGAGE30US - 30-Year Fixed Rate Mortgage Average in the United States
+USD3MTD156N - 3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar
+MEHOINUSA672N - Real Median Household Income in the United States
+PSAVERT - Personal Saving Rate
+DCOILWTICO - Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma
+GFDEBTN - Federal Debt: Total Public Debt
+BUSLOANS - Commercial and Industrial Loans, All Commercial Banks
+DAAA - Moody's Seasoned Aaa Corporate Bond Yield</string>
     </property>
    </widget>
   </widget>
@@ -176,7 +236,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>970</width>
+     <width>950</width>
      <height>21</height>
     </rect>
    </property>
@@ -188,12 +248,6 @@
    <class>chloroplethWidget</class>
    <extends>QWidget</extends>
    <header>chloroplethwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>folium</class>
-   <extends>QWidget</extends>
-   <header>folium.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
