@@ -1,17 +1,18 @@
 import sys
 import os
 
+
 #os.environ['QT_QPA_PLATFORM']='offscreen'
 #os.environ['QT_STYLE_OVERRIDE']='0'
 
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import geopandas as gpd
+#import geopandas as gpd
 import matplotlib.pyplot as plt
 from datetime import datetime
 import scipy.stats as stats
-import folium
+
 
 from PyQt5 import *
 from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QMainWindow
@@ -32,7 +33,7 @@ warnings.filterwarnings('ignore')
 from fredapi import Fred
 
 from chloroplethwidget import chloroplethWidget
-#from foliumwidget import foliumWidget
+from foliumwidget import foliumWidget
 
 # initial directory 
 cwd = os.getcwd()
@@ -107,6 +108,9 @@ class AppMain(QMainWindow):
         self.comboYearStart.addItems(year)
         self.comboYearEnd.addItems(year)
 
+        #foliumWidget=foliumWidget()
+        #self.foliumWidget.show()
+
 
     def correlate(self):
 
@@ -114,11 +118,11 @@ class AppMain(QMainWindow):
 
               
         #code for calculating chloropleth
-        csa = gpd.read_file('shapefiles/cb_2018_us_csa_20m.shp')
-        states = gpd.read_file('shapefiles/cb_2018_us_state_20m.shp')
+        #csa = gpd.read_file('shapefiles/cb_2018_us_csa_20m.shp')
+        #states = gpd.read_file('shapefiles/cb_2018_us_state_20m.shp')
 
-        csa = csa.to_crs("EPSG:3395")
-        states = states.to_crs("EPSG:3395")
+        #csa = csa.to_crs("EPSG:3395")
+        #states = states.to_crs("EPSG:3395")
         
 
         #Alaska and Hawaii excluded due to lack of CSA
@@ -144,32 +148,14 @@ class AppMain(QMainWindow):
         #data_2=data_2.resample('30D').mean()
 
         df=pd.concat([data_1,data_2], axis=1).resample('30D').mean().dropna()
-        print(df)
-        print(df.tail())
-
-
-
-        print(data_1.size)
-        print(data_2.size)
-
         r, p = stats.pearsonr(df.iloc[:,0],df.iloc[:,1])
-        print(r)
-        print(p)
-
-        
-        
+     
+       
 
         self.chloroplethWidget.canvas.axes.cla()
         self.chloroplethWidget.canvas.ax2.cla()
-        #self.chloroplethWidget.canvas.ax2=self.chloroplethWidget.canvas.axes.twinx()
-        #self.chloroplethWidget.canvas.axes.us_boundary_map
-        #self.chloroplethWidget.canvas.axes.states.boundary.plot(color="Black", linewidth=.1)
-        #self.chloroplethWidget.canvas.axes.plot(ax=us_boundary_map, cmap='magma', data=csa)
-        #self.chloroplethWidget.canvas.axes.toolbar = NavigationToolbar(self.chloroplethWidget.canvas, self)
         self.chloroplethWidget.canvas.axes.plot(data_1, marker='.')
         self.chloroplethWidget.canvas.ax2.plot(data_2, marker='.', color = 'green')
-        #self.chloroplethWidget.canvas.axes.plot(df.index,df['0'], marker='.')
-        #self.chloroplethWidget.canvas.ax2.plot(df.index,df['1'], marker='.', color = 'green')
         self.chloroplethWidget.canvas.axes.set(title=f"Correlation (Pearson) r = {r}")
         self.chloroplethWidget.canvas.draw()
         
