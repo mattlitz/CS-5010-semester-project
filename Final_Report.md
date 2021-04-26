@@ -19,11 +19,11 @@ The team initially set out to web scrape housing price data however quickly ran 
 
 ### Predictors
 
-*Unemployment Rate    
-  *% unemployment per county from the years 2000 to 2020
-  *67599 data values with no missing data
-  *Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
-  *Data Source: Geo FRED
+* Unemployment Rate    
+  * % unemployment per county from the years 2000 to 2020
+  * 67599 data values with no missing data
+  * Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
+  * Data Source: Geo FRED
 
 Crime Rate
 Crime rate per 100,000 in each state from the years 2000 to 2020
