@@ -25,14 +25,14 @@ The team initially set out to web scrape housing price data however quickly ran 
   * Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
   * Data Source: Geo FRED
 
-Crime Rate
-Crime rate per 100,000 in each state from the years 2000 to 2020
-1050 data values with no missing data - 50 crime rates by state for 21 years
-Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
-Data Source: Crime Data Explorer
+* Crime Rate
+  * Crime rate per 100,000 in each state from the years 2000 to 2020
+  * 1050 data values with no missing data - 50 crime rates by state for 21 years
+  * Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
+  * Data Source: Crime Data Explorer
 
-Mortgage Rate
-% Mortgage Rate by month for 30-Year Fixed Mortgage from 2000 to 2020
-252 data values with no missing data
-Quantitative continuous data with a range from 3.11 to 8.05 and mean of 5.09
-Data Source: Freddiemac
+* Mortgage Rate
+  * % Mortgage Rate by month for 30-Year Fixed Mortgage from 2000 to 2020
+  * 252 data values with no missing data
+  * Quantitative continuous data with a range from 3.11 to 8.05 and mean of 5.09
+  * Data Source: Freddiemac
