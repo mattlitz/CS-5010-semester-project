@@ -126,8 +126,8 @@ class AppMain(QMainWindow):
         
 
         #Alaska and Hawaii excluded due to lack of CSA
-        states=states[states['NAME'] != 'Alaska']
-        states=states[states['NAME'] != 'Hawaii']
+        #states=states[states['NAME'] != 'Alaska']
+       # states=states[states['NAME'] != 'Hawaii']
 
         #us_boundary_map = states.boundary.plot(figsize=(5, 5),color="Black", linewidth=.1)
 
@@ -171,6 +171,7 @@ class AppMain(QMainWindow):
 
 
 app=QApplication([])
+app.setStyle('Fusion')
 window=AppMain()
 window.show()
 app.exec()

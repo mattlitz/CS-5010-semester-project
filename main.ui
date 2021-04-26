@@ -49,26 +49,6 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>Correlation Line Chart</string>
-     </attribute>
-     <widget class="chloroplethWidget" name="chloroplethWidget" native="true">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>1191</width>
-        <height>751</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Bar Chart</string>
-     </attribute>
-    </widget>
     <widget class="QWidget" name="Map">
      <attribute name="title">
       <string>Map</string>
@@ -88,6 +68,26 @@
        </font>
       </property>
      </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Correlation Line Chart</string>
+     </attribute>
+     <widget class="chloroplethWidget" name="chloroplethWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>1191</width>
+        <height>751</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Bar Chart</string>
+     </attribute>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
