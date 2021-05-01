@@ -1,8 +1,11 @@
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog, QHBoxLayout, QVBoxLayout
+from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets
 import folium
-from folium.plugins.draw import Draw
 import io
+import pandas as pd
+import os
+
 
 class foliumWidget(QWidget):
 
@@ -10,93 +13,48 @@ class foliumWidget(QWidget):
         #super().__init__()
         QWidget.__init__(self, parent)
 
-
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        county_map=r'shapefiles/cb_2017_us_county_20m.json'
-        #county_map=r'shapefiles/gz_2010_us_050_00_500k.json'
-       
+                  
+        state_data = r'shapefiles/us_county_data.csv'
+        us_geo = r'shapefiles/us-states.json'
+        
+        df = pd.read_csv(state_data, na_values=[" "])
 
+        df_min=pd.DataFrame()
+        df_min=df.groupby('State', as_index=False)['Unemployment_rate_2011'].mean()
         
 
-        #coordinate = (37.8199286, -122.4782551)
-        m = folium.Map(
-            tiles='CartoDB positron',
-            location=[48, -102],
-            zoom_start=2,            
-        )
 
-        #folium.TileLayer('CartoDB positron',name="Light Map",control=False).add_to(m)
+        m = folium.Map(location=[48, -102], tiles="cartodbpositron", zoom_start=3)
 
-        geo_json = folium.GeoJson(county_map, name="geojson")#.add_to(m)
-        
+       # bins = list(df_min["Unemployment_rate_2011"].quantile([0, 0.25, 0.5, 0.75, 1]))
 
-        #folium.GeoJson(open(county_map).read()).add_to(m)
-        #layer=folium.GeoJson(county_map, name="geojson").add_to(m)
+        choropleth = folium.Choropleth(
+            geo_data= us_geo,
+            name="choropleth",
+            data=df_min,
+            columns=["State","Unemployment_rate_2011"],
+            key_on="feature.id",
+            fill_color="PuRd",
+            fill_opacity=0.7,
+            line_opacity=0.1,
+            legend_name="Unemployment_rate_2011",
+         #   bins=bins,
+            reset=True,
+        ).add_to(m)
 
-        #layer = folium.GeoJson(
-        #    data=(open(county_map, "r").read()),
-        #    name='geojson',
-        #).add_to(m) # 1. keep a reference to GeoJSON layer
+     #   choropleth.geojson.add_child(
+      #      folium.features.GeoJsonTooltip(['State'])
+       #     )
 
-       # folium.TopoJson(
-        #    open(county_map)).add_to(m)
 
-        #folium.Choropleth(open(county_map)).add_to(m)
-
-        #folium.Choropleth(geo_data=county_map).add_to(m)
-
-      #  folium.Choropleth(
-          #  geo_data=county_map,
-           # name="choropleth",
-           # data=state_data,
-           # columns=["State", "Unemployment"],
-           # key_on="feature.id",
-            #fill_color="YlGn",
-            #fill_opacity=0.7,
-           # line_opacity=0.2,
-            #legend_name="Median Housing Price Correlations",
-       # ).add_to(m)
-
-      #  folium.TopoJson(
-          #  json.loads(requests.get(county_map).text),
-         #   "objects.cb_2018_us_county_20m",
-        #).add_to(m)
-
-        #m.add_child(c)
-        #m.keep_in_front(c)
-
-        #m.add_child(folium.GeoJson(data = open(county_map)))
-
-        #geojson_layer = folium.GeoJson(county_map,
-                        #       name='geojson')
-
-        #geojson_layer.add_to(m)
-
-        
-
-        # save map data to data object
-
-        #m.fit_bounds(layer.get_bounds())
-
-        geo_json.add_to(m)
-        #m.add_child(geo_json)
-
-        m.add_child(folium.LayerControl())#.add_to(m)
+        #folium.LayerControl().add_to(m)
         data = io.BytesIO()
         m.save(data, close_file=False)
 
-  
-        
 
         webView = QWebEngineView()
         webView.setHtml(data.getvalue().decode())
-
-        
         layout.addWidget(webView)
-
-        #self.interceptor = Interceptor()
-        #webView.page().profile().setUrlRequestInterceptor(self.interceptor)
-
-

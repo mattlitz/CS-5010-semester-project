@@ -34,6 +34,7 @@ from fredapi import Fred
 
 from chloroplethwidget import chloroplethWidget
 from foliumwidget import foliumWidget
+from pairplotwidget import pairplotWidget
 
 # initial directory 
 cwd = os.getcwd()
@@ -63,9 +64,10 @@ class AppMain(QMainWindow):
         #self.setWindowIcon(QtGui.QIcon('C:\logo.jpg'))
 
         self.calculateButton.clicked.connect(self.correlate)
+        self.pairplotButton.clicked.connect(self.pairplot)
         self.exitButton.clicked.connect(self.close)
 
-        #sys.stdout = EmittingStream(textWritten=self.normalOutputWritten)
+        sys.stdout = EmittingStream(textWritten=self.normalOutputWritten)
        
         #initialize FRED data sets
         self.combo_FRED_1.addItem("SP500")
@@ -103,7 +105,7 @@ class AppMain(QMainWindow):
         self.combo_FRED_2.addItem("BUSLOANS") #Commercial and Industrial Loans, All Commercial Banks
         self.combo_FRED_2.addItem("DAAA") #Moody's Seasoned Aaa Corporate Bond Yield
 
-        year=['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021']
+        year=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021']
 
         self.comboYearStart.addItems(year)
         self.comboYearEnd.addItems(year)
@@ -112,24 +114,23 @@ class AppMain(QMainWindow):
         #self.foliumWidget.show()
 
 
+    def __del__(self):
+        sys.stdout = sys.__stdout__
+
+      
+    def normalOutputWritten(self,text):
+        cursor=self.printOutput.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)
+        cursor.insertText(text)
+        self.printOutput.setTextCursor(cursor)
+        self.printOutput.ensureCursorVisible()
+
+
     def correlate(self):
 
 
-
-              
-        #code for calculating chloropleth
-        #csa = gpd.read_file('shapefiles/cb_2018_us_csa_20m.shp')
-        #states = gpd.read_file('shapefiles/cb_2018_us_state_20m.shp')
-
-        #csa = csa.to_crs("EPSG:3395")
-        #states = states.to_crs("EPSG:3395")
-        
-
-        #Alaska and Hawaii excluded due to lack of CSA
-        #states=states[states['NAME'] != 'Alaska']
-       # states=states[states['NAME'] != 'Hawaii']
-
-        #us_boundary_map = states.boundary.plot(figsize=(5, 5),color="Black", linewidth=.1)
+        #sequentialfeatureselector
+        # #plotlly express
 
         #convert text input times to numeric
         year_start = datetime.strptime(self.comboYearStart.currentText(), '%Y')
@@ -138,19 +139,15 @@ class AppMain(QMainWindow):
         fred_1 = Fred(api_key='d7f545fe7858da4279909dd26a7b28cc')
         fred_2 = Fred(api_key='d7f545fe7858da4279909dd26a7b28cc')
 
-
         
         data_1 = fred_1.get_series(''+ str(self.combo_FRED_1.currentText()) +'', observation_start=''+ str(year_start.date()) +'', observation_end=''+ str(year_end.date()) +'')
         data_2 = fred_2.get_series(''+ str(self.combo_FRED_2.currentText()) +'', observation_start=''+ str(year_start.date()) +'', observation_end=''+ str(year_end.date()) +'')
         
-        #need to sample by month
-        #data_1=data_1.resample('30D').mean()
-        #data_2=data_2.resample('30D').mean()
-
-        df=pd.concat([data_1,data_2], axis=1).resample('30D').mean().dropna()
+        df=pd.concat([data_1,data_2], axis=1).resample('M').mean().dropna()
         r, p = stats.pearsonr(df.iloc[:,0],df.iloc[:,1])
-     
-       
+        print(r)
+        print(p)
+           
 
         self.chloroplethWidget.canvas.axes.cla()
         self.chloroplethWidget.canvas.ax2.cla()
@@ -168,6 +165,21 @@ class AppMain(QMainWindow):
         #print(cbsa)
         #csa[csa['NAME'] == 'Des Moines-Ames-West Des Moines, IA'].plot(figsize=(12, 12))
 
+
+     def pairplot(self):
+
+
+
+
+
+
+
+
+class EmittingStream(QtCore.QObject):
+    textWritten = QtCore.pyqtSignal(str)
+
+    def write(self, text):
+        self.textWritten.emit(str(text))
 
 
 app=QApplication([])
