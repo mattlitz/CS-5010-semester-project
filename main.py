@@ -5,27 +5,17 @@ import os
 #os.environ['QT_QPA_PLATFORM']='offscreen'
 #os.environ['QT_STYLE_OVERRIDE']='0'
 
+import folium
 import numpy as np
 import pandas as pd
 import seaborn as sns
-#import geopandas as gpd
 import matplotlib.pyplot as plt
 from datetime import datetime
 import scipy.stats as stats
 
-
 from PyQt5 import *
-from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QMainWindow
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import*
-from PyQt5 import QtCore,QtGui,QtWidgets, QtWebEngineWidgets
-#from PyQt5.QtGui import QPixmap
-
-
-from sklearn.linear_model import LassoCV
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, PolynomialFeatures #OneHotEncoder #categorical data
-from sklearn.metrics import mean_squared_error, make_scorer, accuracy_score
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -34,7 +24,7 @@ from fredapi import Fred
 
 from chloroplethwidget import chloroplethWidget
 from foliumwidget import foliumWidget
-from pairplotwidget import pairplotWidget
+#from pairplotwidget import pairplotWidget
 
 # initial directory 
 cwd = os.getcwd()
@@ -64,7 +54,7 @@ class AppMain(QMainWindow):
         #self.setWindowIcon(QtGui.QIcon('C:\logo.jpg'))
 
         self.calculateButton.clicked.connect(self.correlate)
-        self.pairplotButton.clicked.connect(self.pairplot)
+   #     self.pairplotButton.clicked.connect(self.pairplot)
         self.exitButton.clicked.connect(self.close)
 
         sys.stdout = EmittingStream(textWritten=self.normalOutputWritten)
@@ -110,8 +100,6 @@ class AppMain(QMainWindow):
         self.comboYearStart.addItems(year)
         self.comboYearEnd.addItems(year)
 
-        #foliumWidget=foliumWidget()
-        #self.foliumWidget.show()
 
 
     def __del__(self):
@@ -166,12 +154,7 @@ class AppMain(QMainWindow):
         #csa[csa['NAME'] == 'Des Moines-Ames-West Des Moines, IA'].plot(figsize=(12, 12))
 
 
-     def pairplot(self):
-
-
-
-
-
+  #   def pairplot(self):
 
 
 
@@ -182,8 +165,8 @@ class EmittingStream(QtCore.QObject):
         self.textWritten.emit(str(text))
 
 
-app=QApplication([])
-app.setStyle('Fusion')
+app=QApplication(sys.argv)
+#app.setStyle('Fusion')
 window=AppMain()
 window.show()
-app.exec()
+sys.exit(app.exec_())
