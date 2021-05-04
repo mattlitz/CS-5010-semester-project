@@ -1,6 +1,10 @@
 import sys
 import os
 
+# initial directory 
+cwd = os.getcwd()
+os.chdir(cwd)
+
 from fredapi import Fred
 from pandas_datareader import data
 
@@ -23,11 +27,9 @@ from fredapi import Fred
 
 from chloroplethwidget import chloroplethWidget
 from foliumwidget import foliumWidget
-#from pairplotwidget import pairplotWidget
+from pairplotwidget import pairplotWidget
+from heatmapwidget import heatmapWidget
 
-# initial directory 
-cwd = os.getcwd()
-os.chdir(cwd)
 
 
 def show_exception_and_exit(exc_type,exc_value,tb):
@@ -48,7 +50,6 @@ class AppMain(QMainWindow):
         loadUi(r'main.ui',self)
 
         
-
         self.setWindowTitle("Housing Sector Market Performance Analysis")
         #self.setWindowIcon(QtGui.QIcon('C:\logo.jpg'))
 
@@ -58,42 +59,12 @@ class AppMain(QMainWindow):
 
         sys.stdout = EmittingStream(textWritten=self.normalOutputWritten)
        
-        #initialize FRED data sets
-        self.combo_FRED_1.addItem("CASE-SHILLER")
-        self.combo_FRED_1.addItem("CPI") #M1 Stock
-        self.combo_FRED_1.addItem("M2") #S&P/Case-Shiller U.S. National Home Price Index
-        self.combo_FRED_1.addItem("EFFR") #Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
-        self.combo_FRED_1.addItem("10YR") #M2 Money Stock
-        self.combo_FRED_1.addItem("30YR_MORT") #Effective Federal Funds Rate
-        self.combo_FRED_1.addItem("PERS_SAV") #10-Year Treasury Constant Maturity Rate
-        self.combo_FRED_1.addItem("WTI_OIL") #Unemployment Rate maybe look at CA?
-        self.combo_FRED_1.addItem("BUSLOANS") #30-Year Fixed Rate Mortgage Average in the United States
-        self.combo_FRED_1.addItem("CORP_BOND") #3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar
 
-        #initialize FRED data sets
-        self.combo_FRED_2.addItem("CASE-SHILLER")
-        self.combo_FRED_2.addItem("CPI") #M1 Stock
-        self.combo_FRED_2.addItem("M2") #S&P/Case-Shiller U.S. National Home Price Index
-        self.combo_FRED_2.addItem("EFFR") #Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
-        self.combo_FRED_2.addItem("10YR") #M2 Money Stock
-        self.combo_FRED_2.addItem("30YR_MORT") #Effective Federal Funds Rate
-        self.combo_FRED_2.addItem("PERS_SAV") #10-Year Treasury Constant Maturity Rate
-        self.combo_FRED_2.addItem("WTI_OIL") #Unemployment Rate maybe look at CA?
-        self.combo_FRED_2.addItem("BUSLOANS") #30-Year Fixed Rate Mortgage Average in the United States
-        self.combo_FRED_2.addItem("CORP_BOND") #3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar
+        #self.comboYearStart.addItems(year)
+        #self.comboYearEnd.addItems(year)
 
-        year=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021']
-
-        self.comboYearStart.addItems(year)
-        self.comboYearEnd.addItems(year)
-
-        #self.start_dateEdit.date()
-        #self.end_dateEdit.date()
-
-
-
-        
-
+        self.start_dateEdit.date()
+        self.end_dateEdit.date()
 
 
         #initialize FRED data
@@ -152,8 +123,17 @@ class AppMain(QMainWindow):
         self.pairplotButton.clicked.connect(self.pairplot)
 
         #initialize pairplot combo boxes
-        self.pair_countyBox.addItems(county_list)
-        self.pair_stateBox.addItems(state_list)
+        self.countyBox.addItems(county_list)
+        self.stateBox.addItems(state_list)
+
+        #pairplot button
+        self.heatmapButton.clicked.connect(self.heatmap)
+
+        #initialize correlate line chart combo boxes
+        metrics=['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND']
+        self.series_1_Box.addItems(metrics)
+        self.series_2_Box.addItems(metrics)
+
 
 
 
@@ -171,40 +151,71 @@ class AppMain(QMainWindow):
 
     def correlate(self):
 
-
-        #sequentialfeatureselector
-        # #plotlly express
-
-        #convert text input times to numeric
-        #year_start = datetime.strptime(self.comboYearStart.currentText(), '%Y')
-        #year_end = datetime.strptime(self.comboYearEnd.currentText(), '%Y')
-
+        ############PAIRPLOT FUNCTION
+        #time slice
+        df_slice=self.df1[self.start_dateEdit.date().toPyDate():self.end_dateEdit.date().toPyDate()]
+        #filter down to Bedroom##############
+        df_pp=df_slice[(df_slice['CountyName']==''+ str(self.countyBox.currentText()) + '') & (df_slice['State']==''+ str(self.stateBox.currentText()) + '')].groupby(['CountyName','State','Bedrooms'])['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND'].resample('M').mean().dropna()
         
-        data_1 = self.fred_df[''+ str(self.comboYearStart.currentText()) +'-01-01':''+ str(self.comboYearEnd.currentText()) +'-01-01'][''+ str(self.combo_FRED_1.currentText()) +'']
-        data_2 = self.fred_df[''+ str(self.comboYearStart.currentText()) +'-01-01':''+ str(self.comboYearEnd.currentText()) +'-01-01'][''+ str(self.combo_FRED_2.currentText()) +'']
+
+        data_1 = df_pp[''+ str(self.series_1_Box.currentText()) +'']
+        data_2 = df_pp[''+ str(self.series_2_Box.currentText()) +'']
+        print(data_1)
+        print(data_2)
+
+        df_corr=pd.concat([data_1,data_2], axis=1)
+        r, p = stats.pearsonr(df_corr.iloc[:,0],df_corr.iloc[:,1])
+        print('Correlation (Pearson) r = ', r)
+        print('P-Value p = ', p)
+
+        self.chloroplethWidget.canvas.axes.cla()
+        self.chloroplethWidget.canvas.ax2.cla()
+        #self.chloroplethWidget.canvas.axes.plot(data_1, marker='.')
+        #self.chloroplethWidget.canvas.ax2.plot(data_2, marker='.', color = 'green')
+        data_1.plot(marker='.', ax=self.chloroplethWidget.canvas.axes)
+        data_2.plot(marker='.', color = 'green',ax=self.chloroplethWidget.canvas.ax2)
+        self.chloroplethWidget.canvas.draw()
     
         
       
 
     def pairplot(self):
-
-        
+       
         ############PAIRPLOT FUNCTION
         #time slice
-        #start_date = pd.to_datetime(''+ str(self.start_dateEdit.date() ) + '')
-        #end_date = pd.to_datetime(''+ str(self.end_dateEdit.date() ) + '')
-        #start_date = pd.to_datetime('1/1/2016')
-        #end_date = pd.to_datetime('1/1/2020')
-        #self.df1=self.df1[start_date:end_date]
+        df_slice=self.df1[self.start_dateEdit.date().toPyDate():self.end_dateEdit.date().toPyDate()]
         #filter down to Bedroom##############
-        #self.df1=self.df1[(self.df1['CountyName']==''+ str(self.pair_countyBox.currentText()) + '') & (self.df1['State']==''+ str(self.pair_stateBox.currentText()) + '')].groupby(['CountyName','State','Bedrooms'])['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND'].resample('M').mean().dropna()
-        #print(self.df1)
-        df_pp=self.df1[(self.df1['CountyName']=="Cook County") & (self.df1['State']=="IL")].groupby(['CountyName','State','Bedrooms'])['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND'].resample('M').mean().dropna()
+        df_pp=df_slice[(df_slice['CountyName']==''+ str(self.countyBox.currentText()) + '') & (df_slice['State']==''+ str(self.stateBox.currentText()) + '')].groupby(['CountyName','State','Bedrooms'])['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND'].resample('M').mean().dropna()
         self.pairplotWidget.canvas.axes.cla()
-        #self.pairplotWidget.canvas.axes.draw()
-        pd.plotting.scatter_matrix(df_pp, figsize=(5,5), marker = '.', hist_kwds = {'bins': 10}, s = 60, alpha = 0.6, ax=self.pairplotWidget.canvas.axes)
+        pd.plotting.scatter_matrix(df_pp, figsize=(5,5), marker = '.', hist_kwds = {'bins': 20}, s = 60, alpha = 0.6, ax=self.pairplotWidget.canvas.axes)
         self.pairplotWidget.canvas.draw()
+
+
+    def heatmap(self):
+       
+        ############HEATMAP FUNCTION
+        #time slice
+        df_slice=self.df1[self.start_dateEdit.date().toPyDate():self.end_dateEdit.date().toPyDate()]
+        #filter down to Bedroom##############
+        df_pp=df_slice[(df_slice['CountyName']==''+ str(self.countyBox.currentText()) + '') & (df_slice['State']==''+ str(self.stateBox.currentText()) + '')].groupby(['CountyName','State','Bedrooms'])['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND'].resample('M').mean().dropna()
         
+                
+        self.heatmapWidget.canvas.axes.cla()
+        self.heatmapWidget.canvas.axes.matshow(df_pp.corr())
+        #self.heatmapWidget.canvas.axes.set_xticks(range(df_pp.select_dtypes(['number']).shape[1]), df_pp.select_dtypes(['number']).columns)
+        #self.heatmapWidget.canvas.axes.set_yticks(range(df_pp.select_dtypes(['number']).shape[1]), df_pp.select_dtypes(['number']).columns)
+        #self.heatmapWidget.canvas.axes.colorbar()
+        self.heatmapWidget.canvas.axes.tick_params(labelsize=14)
+        #self.heatmapWidget.canvas.axes.title('Correlation Matrix', fontsize=16)
+        self.heatmapWidget.canvas.draw()
+        
+        #f = plt.figure(figsize=(19, 15))
+        #plt.matshow(df.corr(), fignum=f.number)
+        #plt.xticks(range(df.select_dtypes(['number']).shape[1]), df.select_dtypes(['number']).columns, fontsize=14, rotation=45)
+        #plt.yticks(range(df.select_dtypes(['number']).shape[1]), df.select_dtypes(['number']).columns, fontsize=14)
+        #cb = plt.colorbar()
+        #cb.ax.tick_params(labelsize=14)
+        #plt.title('Correlation Matrix', fontsize=16);
 
 
 
