@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1905</width>
-    <height>1604</height>
+    <width>2086</width>
+    <height>1539</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="calculateButton">
     <property name="geometry">
      <rect>
-      <x>1360</x>
-      <y>250</y>
+      <x>1650</x>
+      <y>230</y>
       <width>171</width>
       <height>51</height>
      </rect>
@@ -36,7 +36,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>400</y>
+      <y>30</y>
       <width>1391</width>
       <height>1071</height>
      </rect>
@@ -58,14 +58,42 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>1351</width>
-        <height>991</height>
+        <width>1131</width>
+        <height>921</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>11</pointsize>
        </font>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cor_bedroomBox">
+      <property name="geometry">
+       <rect>
+        <x>1210</x>
+        <y>190</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>1210</x>
+        <y>128</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bedrooms</string>
       </property>
      </widget>
     </widget>
@@ -106,7 +134,7 @@
      <widget class="QPushButton" name="pairplotButton">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1160</x>
         <y>90</y>
         <width>181</width>
         <height>61</height>
@@ -116,22 +144,73 @@
        <string>Apply PairPlot</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QComboBox" name="pair_bedroomBox">
       <property name="geometry">
        <rect>
-        <x>1120</x>
-        <y>200</y>
-        <width>241</width>
+        <x>1160</x>
+        <y>230</y>
+        <width>181</width>
+        <height>51</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="pair_countyBox">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>350</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>180</y>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
+      <property name="text">
+       <string>Bedrooms</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>290</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
       </property>
       <property name="text">
-       <string>1 Bedroom House</string>
+       <string>County</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="pair_stateBox">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>470</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>420</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>State</string>
       </property>
      </widget>
     </widget>
@@ -139,8 +218,8 @@
    <widget class="QPushButton" name="exitButton">
     <property name="geometry">
      <rect>
-      <x>1360</x>
-      <y>340</y>
+      <x>1650</x>
+      <y>320</y>
       <width>171</width>
       <height>51</height>
      </rect>
@@ -157,8 +236,8 @@
    <widget class="QComboBox" name="combo_FRED_2">
     <property name="geometry">
      <rect>
-      <x>1360</x>
-      <y>150</y>
+      <x>1850</x>
+      <y>140</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -172,8 +251,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>1360</x>
-      <y>120</y>
+      <x>1850</x>
+      <y>110</y>
       <width>131</width>
       <height>21</height>
      </rect>
@@ -185,8 +264,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>1360</x>
-      <y>50</y>
+      <x>1850</x>
+      <y>40</y>
       <width>131</width>
       <height>21</height>
      </rect>
@@ -198,21 +277,21 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>50</y>
+      <x>1490</x>
+      <y>30</y>
       <width>131</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Time Range - Year Start</string>
+     <string>Year Start</string>
     </property>
    </widget>
    <widget class="QComboBox" name="combo_FRED_1">
     <property name="geometry">
      <rect>
-      <x>1360</x>
-      <y>80</y>
+      <x>1850</x>
+      <y>70</y>
       <width>171</width>
       <height>31</height>
      </rect>
@@ -226,21 +305,21 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>120</y>
+      <x>1490</x>
+      <y>100</y>
       <width>131</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Time Range - Year End</string>
+     <string>Year End</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboYearStart">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>80</y>
+      <x>1490</x>
+      <y>60</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -254,8 +333,8 @@
    <widget class="QComboBox" name="comboYearEnd">
     <property name="geometry">
      <rect>
-      <x>1200</x>
-      <y>150</y>
+      <x>1490</x>
+      <y>130</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -266,51 +345,21 @@
      </font>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>731</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Available FRED Data Sets:
-
-SP500 - S&amp;P 500 Index
-WM1NS - M1 Stock
-CSUSHPISA - S&amp;P/Case-Shiller U.S. National Home Price Index
-CPIAUCSL - Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
-WM2NS - M2 Money Stock
-EFFR - Effective Federal Funds Rate
-DGS10 - 10-Year Treasury Constant Maturity Rate
-UNRATE - Unemployment Rate
-MORTGAGE30US - 30-Year Fixed Rate Mortgage Average in the United States
-USD3MTD156N - 3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar
-MEHOINUSA672N - Real Median Household Income in the United States
-PSAVERT - Personal Saving Rate
-DCOILWTICO - Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma
-GFDEBTN - Federal Debt: Total Public Debt
-BUSLOANS - Commercial and Industrial Loans, All Commercial Banks
-DAAA - Moody's Seasoned Aaa Corporate Bond Yield</string>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="printOutput">
     <property name="geometry">
      <rect>
-      <x>1430</x>
-      <y>440</y>
-      <width>451</width>
-      <height>1031</height>
+      <x>20</x>
+      <y>1150</y>
+      <width>1391</width>
+      <height>331</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>1440</x>
-      <y>410</y>
+      <x>20</x>
+      <y>1120</y>
       <width>131</width>
       <height>21</height>
      </rect>
@@ -319,13 +368,43 @@ DAAA - Moody's Seasoned Aaa Corporate Bond Yield</string>
      <string>Output</string>
     </property>
    </widget>
+   <widget class="QDateEdit" name="start_dateEdit">
+    <property name="geometry">
+     <rect>
+      <x>1650</x>
+      <y>60</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="end_dateEdit">
+    <property name="geometry">
+     <rect>
+      <x>1650</x>
+      <y>130</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1905</width>
+     <width>2086</width>
      <height>31</height>
     </rect>
    </property>
