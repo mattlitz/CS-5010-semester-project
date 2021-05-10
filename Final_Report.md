@@ -197,12 +197,12 @@ Correlation Inference and Introduction to Linear Regression
 The correlation calculations between the Zillow House Price Index and Unemployment Rate and Zillow House Price Index and Crime Rate also showed the negative correlation over the last decade as per the plots. This negative correlation between house price index and some of the common factors influencing the price index and the positive correlation between these two quantities at the state level led us to investigate further and come up with a model that would predict the house price and hence we built a multilinear regression model to predict the price of house. 
 
 ## Stage 3:  Prediction Model
-Single Linear Regression Model
+
+### Single Linear Regression Model
     We wanted to initially see how each of the predictors affected the “Price”.  Whether there was a negative or positive correlation across all the data covering the entire USA.  Below the linear regression model.
 
 
-
-### Linear Regression Analysis per  Predictor:
+Linear Regression Analysis per Predictor:
 * S&P 500
    * Y = 162248 + 38X
    * The predictor and the response have a direct relationship
@@ -220,7 +220,8 @@ Single Linear Regression Model
    * The predictor and the response have a direct relationship
 
 All of our predictors had the expected relationship except “Unemployment Rate”.  One would expect as the “Unemployment Rate” increases the housing prices would go down.   This will need further analysis however a possible explanation could be that if the rate goes up people are less likely to move hence decreasing the supply of houses on the market causing an increase in the price. It should be noted that the coefficient is very small.
-Multi Linear Regression Model
+
+### Multi Linear Regression Model
     Below is the multilinear regression model equation for the entire USA. As you can see that several of the coefficients for each of the predictors do not emulate single linear regression equations.  This requires further investigation 
     Price= -3768341 Bedrooms -2.4 SP500 +14830 Rate -14126 Unemployment +209 Crime
 
@@ -230,12 +231,12 @@ Multi Linear Regression Model
 For the machine learning model a simple code set was used to evaluate test/train data with an 80/20 split of the data.  Below you can see as the granularity for the machine learning model was increased the clf score increased significantly almost a 10X increase in evaluation accuracy.   
 All models are inaccurate at some point.  This saying is very accurate to the housing market where it is incredibly difficult to predict housing prices in America as the nation geographically is very large, with various industries, and ultimately has very large urban areas vs vast rural areas.
 
-Machine Learning Test/Train Coefficient​
-USA – 0.0394​
-New York - 0.0461​
-New York County-  0.3680
+* Machine Learning Test/Train Coefficient​
+   * USA – 0.0394​
+   * New York - 0.0461​
+   * New York County-  0.3680
 
-##Functional/Non-Functional Requirements
+## Functional/Non-Functional Requirements
 
 The following table presents the functional/non-functional requirements for this application
 
