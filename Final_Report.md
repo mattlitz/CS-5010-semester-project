@@ -32,11 +32,11 @@ The team initially set out to web scrape housing price data however quickly ran 
     * Data Source: Kaggle
     
 ## Predictors 
-    *Bedrooms
-    *Number of bedrooms for each house
-    *8 millions rows of data 
-    *Quantitative discrete data with a range from 1 to 5
-    *Data Source: Kaggle
+* Bedrooms
+    * Number of bedrooms for each house
+    * 8 millions rows of data 
+    * Quantitative discrete data with a range from 1 to 5
+    * Data Source: Kaggle
 
 * Unemployment Rate    
     * % unemployment per county from the years 2000 to 2020
