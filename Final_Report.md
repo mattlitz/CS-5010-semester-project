@@ -296,17 +296,17 @@ Geographic: Close to busy roads
 
 ### Data Set References
 
-*Housing Price/Bedroom - https://www.zillow.com/research/data/ 
-*Crime Rate - https://crime-data-explorer.fr.cloud.gov/pages/explorer/crime/crime-trend
-*Unemployment Rate - https://geofred.stlouisfed.org/map/
-*Mortgage Rates - http://www.freddiemac.com/pmms/pmms30.html
-*S&P 500 - https://finance.yahoo.com/quote/%5EGSPC/ 
+* Housing Price/Bedroom - https://www.zillow.com/research/data/ 
+* Crime Rate - https://crime-data-explorer.fr.cloud.gov/pages/explorer/crime/crime-trend
+* Unemployment Rate - https://geofred.stlouisfed.org/map/
+* Mortgage Rates - http://www.freddiemac.com/pmms/pmms30.html
+* S&P 500 - https://finance.yahoo.com/quote/%5EGSPC/ 
 
-###R eferences
-*Marte, J. (2020, December 15). Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study. Reuters. Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study
+### References
+* Marte, J. (2020, December 15). Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study. Reuters. Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study
 
-*Richardson, B. (2021, January 26). Housing Market Gains More Value In 2020 Than In Any Year Since 2005. Forbes. https://www.forbes.com/sites/brendarichardson/2021/01/26/housing-market-gains-more-value-in-2020-than-in-any-year-since-2005/?sh=4b4ac55f4fe0
+* Richardson, B. (2021, January 26). Housing Market Gains More Value In 2020 Than In Any Year Since 2005. Forbes. https://www.forbes.com/sites/brendarichardson/2021/01/26/housing-market-gains-more-value-in-2020-than-in-any-year-since-2005/?sh=4b4ac55f4fe0
 
 
-###Appendices
+### Appendices
  Data Set for Correlation, Regression, and Machine Learning Analysis
