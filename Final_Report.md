@@ -23,56 +23,58 @@ Predict future prices using the predictors selected
 The goal of this project is to give the stakeholders an idea of the correlation that exists between various predictors that affect the house price.  How the statistical correlation changes from County/City to State levels and How the relationship of these said predictors interacts with the Price factor.  Check to see how geographic granularity affects the accuracy of our predictive models. Give users a user interface (UI) to visualize the data so they make better informed choices during their house purchase journey. Overall, we would like to provide insight to customers so they make data driven decisions on what is most likely the largest purchase of their lives.
 Data Set
 The team initially set out to web scrape housing price data however quickly ran into many websites that blocked web scraping or ip banned the user after they had made so many get requests.   In lieu of these obstacles we reversed course and looked for datasets on kaggle and government websites.  Unemployment Rate, Crime Rate, S&P 500, Net Migration, and Mortgage Rate.
-Response
-Price 
-Home Price 
-8 million rows of data
-Quantitative discrete data 
-Data Source: Kaggle
-Predictors 
-Bedrooms
-Number of bedrooms for each house
-8 millions rows of data 
-Quantitative discrete data with a range from 1 to 5
-Data Source: Kaggle
 
-Unemployment Rate    
-% unemployment per county from the years 2000 to 2020
-67599 data values with no missing data
-Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
-Data Source: Geo FRED
+##Response
+*Price 
+    *Home Price 
+    *8 million rows of data
+    *Quantitative discrete data 
+    *Data Source: Kaggle
+    
+##Predictors 
+    *Bedrooms
+    *Number of bedrooms for each house
+    *8 millions rows of data 
+    *Quantitative discrete data with a range from 1 to 5
+    *Data Source: Kaggle
 
-Crime Rate
-Crime rate per 100,000 in each state from the years 2000 to 2020
-1050 data values with no missing data - 50 crime rates by state for 21 years
-Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
-Data Source: Crime Data Explorer
+*Unemployment Rate    
+    *% unemployment per county from the years 2000 to 2020
+    *67599 data values with no missing data
+    *Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
+    *Data Source: Geo FRED
 
-Number of Bedrooms
-Number of data values by bedroom size
-Over 8 million values
-Quantitative discrete data with a range from 1 to 5  
-Data Source: Kaggle 
+*Crime Rate
+    *Crime rate per 100,000 in each state from the years 2000 to 2020
+    *1050 data values with no missing data - 50 crime rates by state for 21 years
+    *Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
+    *Data Source: Crime Data Explorer
 
-S&P 500
-Market index average for each month from 2000 to 2020
-252 data values with no missing data
-Quantitative continuous data
-Data Source: Yahoo Finance
+*Number of Bedrooms
+    *Number of data values by bedroom size
+    *Over 8 million values
+    *Quantitative discrete data with a range from 1 to 5  
+    *Data Source: Kaggle 
+
+*S&P 500
+    *Market index average for each month from 2000 to 2020
+    *252 data values with no missing data
+    *Quantitative continuous data
+    *Data Source: Yahoo Finance
 
 The following predictors were selected due to their influence on Federal Reserve monetary policy.  To join with the housing price data, the data was resampled on a monthly basis and averaged.
-M2 Money Stock​
-S&P/Case-Shiller U.S. National Home Price Index​
-Consumer Price Index for All Urban Consumers: All Items in U.S. City Average​
-Effective Federal Funds Rate​
-10-Year Treasury Constant Maturity Rate​
-US Unemployment Rate​
-Crime Rates​
-30-Year Fixed Rate Mortgage Average in the United States​
-Personal Saving Rate of US Households​
-Crude Oil Prices: West Texas Intermediate (WTI)​
-Commercial and Industrial Loans, All Commercial Banks​
-Moody's Seasoned Aaa Corporate Bond Yield
+*M2 Money Stock​
+*S&P/Case-Shiller U.S. National Home Price Index​
+*Consumer Price Index for All Urban Consumers: All Items in U.S. City Average​
+*Effective Federal Funds Rate​
+*10-Year Treasury Constant Maturity Rate​
+*US Unemployment Rate​
+*Crime Rates​
+*30-Year Fixed Rate Mortgage Average in the United States​
+*Personal Saving Rate of US Households​
+*Crude Oil Prices: West Texas Intermediate (WTI)​
+*Commercial and Industrial Loans, All Commercial Banks​
+*Moody's Seasoned Aaa Corporate Bond Yield
 
 # Data Cleaning 
 
