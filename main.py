@@ -97,7 +97,7 @@ class AppMain(QMainWindow):
         self.fred_df = df.merge(spy, left_index=True, right_index=True)
         del df, panel_data, spy
 
-        ############INITIALIZE 1 BEDROOM DF###########################################################
+        ############INITIALIZE 4 BEDROOM DF###########################################################
         #read zip data
         zip_df=pd.read_csv(r'data\ZIP-COUNTY-FIPS_2017-06.csv')
         zip_df.rename({'STCOUNTYFP': 'GEO_ID'}, axis=1, inplace=True)
@@ -105,6 +105,7 @@ class AppMain(QMainWindow):
 
         #read bedroom data and melt
         df1=pd.read_csv(r'data\Zip_zhvi_bdrmcnt_4_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv')
+       
         df1['Bedrooms'] = '1'
         df1 = pd.melt(df1, id_vars=['RegionID', 'SizeRank', 'RegionName', 'RegionType', 'StateName','State', 'City', 'Metro', 'CountyName', 'Bedrooms'], var_name='Date', value_name='price_index')#.set_index('Date')
         df1.rename({'RegionName': 'ZIP'}, axis=1, inplace=True)
