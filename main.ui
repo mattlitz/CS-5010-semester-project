@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -148,7 +148,7 @@
     </widget>
     <widget class="QWidget" name="Map">
      <attribute name="title">
-      <string>Map</string>
+      <string>Map - IN PROGRESS</string>
      </attribute>
      <widget class="foliumWidget" name="foliumWidget" native="true">
       <property name="geometry">
