@@ -1,57 +1,3 @@
-# CS 5010 Final Report
-By: Matt Litz, Abhijeet Chawal, Abhishek Bada
-
-## Introduction
-During the COVID pandemic we have all witnessed the housing market grow wildly, houses are selling sight unseen and $20,000 to $50,000 over asking price.  This market peaked our interest and drove us to see what relationships whether economically, socially , and even geographically affected the housing market.
-
-For most Americans purchasing a home will be the largest financial decision they make in their entire lives. This analysis could give helpful insight to those purchasers and even investors on when and where to buy homes so their investment is safe.
-
-## Goals
-
-1. Evaluate how the performance of the S & P 500 is correlated to average house prices in each state and deduce which states housing markets are least affected by a downturn in the economy. 
-1. Analyze correlations between unemployment, crime rate,  geographic location, and net domestic migration to deduce which predictors most heavily influence house price.
-1. Explore seasonal trends of house prices to determine what time of year might have the best market for buyers and sellers. 
-
-
-## Data Set
-
-The team initially set out to web scrape housing price data however quickly ran into many websites that blocked web scraping or ip banned the user after they had made so many get requests.   In lieu of these obstacles we reversed course and looked for datasets on kaggle and government websites.  Unemployment Rate, Crime Rate, S&P 500, Net Migration, and Mortgage Rate.
-
-### Predictors
-
-* Unemployment Rate    
-  * % unemployment per county from the years 2000 to 2020
-  * 67599 data values with no missing data
-  * Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
-  * Data Source: Geo FRED
-
-* Crime Rate
-  * Crime rate per 100,000 in each state from the years 2000 to 2020
-  * 1050 data values with no missing data - 50 crime rates by state for 21 years
-  * Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
-  * Data Source: Crime Data Explorer
-
-* Mortgage Rate
-  * % Mortgage Rate by month for 30-Year Fixed Mortgage from 2000 to 2020
-  * 252 data values with no missing data
-  * Quantitative continuous data with a range from 3.11 to 8.05 and mean of 5.09
-  * Data Source: Freddiemac
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
 CS 5010 Project
 05.09.2021
 ─
@@ -59,99 +5,78 @@ Matthew Litz, Abhijeet Chawhan, Abhishek Bada
 
 
 
-Table Of Contents
 
-Introduction    1
-Github link    2
-Goals    2
-Project Scope    2
-Data Set    2
-Response    3
-Predictors    3
-Data Cleaning    4
-Software Design    4
-Case Study    6
-Stage 1:  Exploratory Data Analysis    6
-Stage 2:  Correlation Analysis    8
-Stage 3:  Prediction Model    16
-Single Linear Regression Model    16
-Multi Linear Regression Model    17
-Machine Learning Model    17
-Functional/Non-Functional Requirements    18
-Testing    19
-Beyond the original specifications    20
-Conclusions    20
-Next Steps    20
-Data Set References    21
-References    21
-Appendices    22
 
-Introduction
+# Introduction
 During the COVID pandemic, the size of the US housing market increased dramatically as buyers were enticed by record lower interest rates.  This market piqued our interest and drove us to see what relationships whether economically, socially , and even geographically affected the housing market.
 For most Americans purchasing a home will be the largest financial decision they make in their entire lives. This analysis could give helpful insight to those purchasers and even investors on when and where to buy homes so their investment is safe.
-Github link 
+##Github link 
 https://github.com/mattlitz/CS-5010-semester-project
-Goals
+
+# Goals
 Analyze correlations between our predictor variables and "Price" to establish which ones most heavily influence house prices.​
 To convert House Index Data into useful information and subsequently into knowledge to find correlation and prediction factors.  ​
 Explore the influence from COVID and other factors on the House price index in the granularity of geography.
 Predict future prices using the predictors selected
-Project Scope
+
+# Project Scope
 The goal of this project is to give the stakeholders an idea of the correlation that exists between various predictors that affect the house price.  How the statistical correlation changes from County/City to State levels and How the relationship of these said predictors interacts with the Price factor.  Check to see how geographic granularity affects the accuracy of our predictive models. Give users a user interface (UI) to visualize the data so they make better informed choices during their house purchase journey. Overall, we would like to provide insight to customers so they make data driven decisions on what is most likely the largest purchase of their lives.
 Data Set
 The team initially set out to web scrape housing price data however quickly ran into many websites that blocked web scraping or ip banned the user after they had made so many get requests.   In lieu of these obstacles we reversed course and looked for datasets on kaggle and government websites.  Unemployment Rate, Crime Rate, S&P 500, Net Migration, and Mortgage Rate.
-Response
-Price 
-Home Price 
-8 million rows of data
-Quantitative discrete data 
-Data Source: Kaggle
-Predictors 
-Bedrooms
-Number of bedrooms for each house
-8 millions rows of data 
-Quantitative discrete data with a range from 1 to 5
-Data Source: Kaggle
 
-Unemployment Rate    
-% unemployment per county from the years 2000 to 2020
-67599 data values with no missing data
-Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
-Data Source: Geo FRED
+## Response
+* Price 
+    * Home Price 
+    * 8 million rows of data
+    * Quantitative discrete data 
+    * Data Source: Kaggle
+    
+## Predictors 
+* Bedrooms
+    * Number of bedrooms for each house
+    * 8 millions rows of data 
+    * Quantitative discrete data with a range from 1 to 5
+    * Data Source: Kaggle
 
-Crime Rate
-Crime rate per 100,000 in each state from the years 2000 to 2020
-1050 data values with no missing data - 50 crime rates by state for 21 years
-Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
-Data Source: Crime Data Explorer
+* Unemployment Rate    
+    * % unemployment per county from the years 2000 to 2020
+    * 67599 data values with no missing data
+    * Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
+    * Data Source: Geo FRED
 
-Number of Bedrooms
-Number of data values by bedroom size
-Over 8 million values
-Quantitative discrete data with a range from 1 to 5  
-Data Source: Kaggle 
+* Crime Rate
+    * Crime rate per 100,000 in each state from the years 2000 to 2020
+    * 1050 data values with no missing data - 50 crime rates by state for 21 years
+    * Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
+    * Data Source: Crime Data Explorer
 
-S&P 500
-Market index average for each month from 2000 to 2020
-252 data values with no missing data
-Quantitative continuous data
-Data Source: Yahoo Finance
+* Number of Bedrooms
+    * Number of data values by bedroom size
+    * Over 8 million values
+    * Quantitative discrete data with a range from 1 to 5  
+    * Data Source: Kaggle 
+
+* S&P 500
+    * Market index average for each month from 2000 to 2020
+    * 252 data values with no missing data
+    * Quantitative continuous data
+    * Data Source: Yahoo Finance
 
 The following predictors were selected due to their influence on Federal Reserve monetary policy.  To join with the housing price data, the data was resampled on a monthly basis and averaged.
-M2 Money Stock​
-S&P/Case-Shiller U.S. National Home Price Index​
-Consumer Price Index for All Urban Consumers: All Items in U.S. City Average​
-Effective Federal Funds Rate​
-10-Year Treasury Constant Maturity Rate​
-US Unemployment Rate​
-Crime Rates​
-30-Year Fixed Rate Mortgage Average in the United States​
-Personal Saving Rate of US Households​
-Crude Oil Prices: West Texas Intermediate (WTI)​
-Commercial and Industrial Loans, All Commercial Banks​
-Moody's Seasoned Aaa Corporate Bond Yield
+* M2 Money Stock​
+* S&P/Case-Shiller U.S. National Home Price Index​
+* Consumer Price Index for All Urban Consumers: All Items in U.S. City Average​
+* Effective Federal Funds Rate​
+* 10-Year Treasury Constant Maturity Rate​
+* US Unemployment Rate​
+* Crime Rates​
+* 30-Year Fixed Rate Mortgage Average in the United States​
+* Personal Saving Rate of US Households​
+* Crude Oil Prices: West Texas Intermediate (WTI)​
+* Commercial and Industrial Loans, All Commercial Banks​
+* Moody's Seasoned Aaa Corporate Bond Yield
 
-Data Cleaning 
+# Data Cleaning 
 
 Most of our data sets came from government agencies and were often reporting at the state/county level so there was rarely if ever a missing value in these data sets. The “Unemployment data set'' had a different column for each data hence the pandas function melt() was needed to collapse all of the dated columns into one date column.  The crime data set consisted of 50 csv files for each of the states and the glob library was very useful to iterate through all the files and concatenate them into one file.  Our housing data had many missing rows that had to be removed. Ultimately all the data sets were combined into one data set using the pandas merge function on the attributes “CountyName”, “State”, and “Date”.
 Software Design
@@ -162,9 +87,10 @@ In the third stage we have a linear regression, multilinear regression, and mach
 
 Figure 1: Screenshot of Housing Sector Exploratory Data Analysis user interface.
 
-Case Study 
+# Case Study 
 At the onset of the COVID pandemic, there were several media reports (Marte, 2020) that people were migrating from large metropolitan areas to lower population regions.  The rationale for their relocation was to reduce the potential for COVID infection.  As a result, the combined reduction in population could increase housing inventory in the real estate market and thus lower prices since the supply is high and demand is lower.  To test this hypothesis, we utilized our user interface to examine the trends for New York County and compare it against Oswego County, a rural county in upstate New York.  Our expectation would be to see a relative drop in price during the time of the pandemic in New York County whereas we would see a price increase in rural areas like Oswego County.
-Stage 1:  Exploratory Data Analysis
+
+## Stage 1:  Exploratory Data Analysis
 
 Our first step was to explore the predictors using our Exploratory Data Analysis tool (Figure 2).  The predictor with an apparent correlation that we selected for further analysis was the S&P 500.  This index is a broad indicator on the health of the US stock market and could have a major influence on house prices.
 
@@ -178,7 +104,7 @@ Next we selected a rural county in New York (Oswego County) and reviewed the cor
 
 Figure 4: Screenshot of the correlation plot of House Price and S&P 500 for Oswego County.
 
-Stage 2:  Correlation Analysis
+## Stage 2:  Correlation Analysis
 
 Correlation Calculation
  
@@ -266,13 +192,13 @@ ReadMe.docx
 Correlation Inference and Introduction to Linear Regression
 The correlation calculations between the Zillow House Price Index and Unemployment Rate and Zillow House Price Index and Crime Rate also showed the negative correlation over the last decade as per the plots. This negative correlation between house price index and some of the common factors influencing the price index and the positive correlation between these two quantities at the state level led us to investigate further and come up with a model that would predict the house price and hence we built a multilinear regression model to predict the price of house. 
 
-Stage 3:  Prediction Model
+## Stage 3:  Prediction Model
 Single Linear Regression Model
     We wanted to initially see how each of the predictors affected the “Price”.  Whether there was a negative or positive correlation across all the data covering the entire USA.  Below the linear regression model.
 
 
 
-Linear Regression Analysis per  Predictor:
+### Linear Regression Analysis per  Predictor:
 S&P 500
 Y = 162248 + 38X
 The predictor and the response have a direct relationship
@@ -296,7 +222,7 @@ Multi Linear Regression Model
 
     Using our model generated specifically for New York County and using the inputs State: NY, Bedrooms: 4, Mortgage Rate: 2.98%, S&P 500: 4140.71, Crime Rate: 7098, and Unemployment rate: 5.1% we got an output prediction price for $6,366,422. The zillow data says for this input and area the avg home price is $6-$8 million so our prediction is right within our range.
 
-Machine Learning Model
+### Machine Learning Model
 For the machine learning model a simple code set was used to evaluate test/train data with an 80/20 split of the data.  Below you can see as the granularity for the machine learning model was increased the clf score increased significantly almost a 10X increase in evaluation accuracy.   
 All models are inaccurate at some point.  This saying is very accurate to the housing market where it is incredibly difficult to predict housing prices in America as the nation geographically is very large, with various industries, and ultimately has very large urban areas vs vast rural areas.
 
@@ -305,7 +231,7 @@ USA – 0.0394​
 New York - 0.0461​
 New York County-  0.3680
 
-Functional/Non-Functional Requirements
+##Functional/Non-Functional Requirements
 
 The following table presents the functional/non-functional requirements for this application
 
@@ -332,12 +258,12 @@ The plots, files and any temporary data gets deleted once the application shuts 
 
 
 
-Testing
+## Testing
 We did some basic testing to make sure that our dataset had no zeros, missing data, duplicate values, and no NaN values.
  
 
  
-Beyond the original specifications
+## Beyond the original specifications
 UI created to visualize various graphs see “Stage 1: Exploratory Analysis” Page 6
 Explored linear regression analysis and machine learning analysis see    “Stage 3: Prediction Model” Page 14.
 Conclusions
@@ -350,7 +276,8 @@ The analysis can be used by the secondary mortgage and real estate marketing com
 Federal Reserve Monetary Policy affect Housing Prices​
 Affected predictors: M2, Federal Funds Rate, 10-Year Treasury, 30-Year Mortgage Rate​
 We have determined it is possible to build predictive models for US House Prices through our analysis of house index price data by converting into information(data frame manipulation) and subsequently into knowledge (regression model).
-Next Steps
+
+## Next Steps
 In the next iteration of this project, the team would like to add multiple improvements across the entire project from scope to predictor variables.
 
 Increase granularity of data to county level for all predictors​
@@ -363,17 +290,19 @@ Social: Schools, Hospitals and Parks​
 Economic: NASDAQ, Average Household Income​
 Geographic: Close to busy roads
 
-Data Set References
+### Data Set References
 
-Housing Price/Bedroom - https://www.zillow.com/research/data/ 
-Crime Rate - https://crime-data-explorer.fr.cloud.gov/pages/explorer/crime/crime-trend
-Unemployment Rate - https://geofred.stlouisfed.org/map/
-Mortgage Rates - http://www.freddiemac.com/pmms/pmms30.html
-S&P 500 - https://finance.yahoo.com/quote/%5EGSPC/ 
-References
-Marte, J. (2020, December 15). Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study. Reuters. Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study
-Richardson, B. (2021, January 26). Housing Market Gains More Value In 2020 Than In Any Year Since 2005. Forbes. https://www.forbes.com/sites/brendarichardson/2021/01/26/housing-market-gains-more-value-in-2020-than-in-any-year-since-2005/?sh=4b4ac55f4fe0
+*Housing Price/Bedroom - https://www.zillow.com/research/data/ 
+*Crime Rate - https://crime-data-explorer.fr.cloud.gov/pages/explorer/crime/crime-trend
+*Unemployment Rate - https://geofred.stlouisfed.org/map/
+*Mortgage Rates - http://www.freddiemac.com/pmms/pmms30.html
+*S&P 500 - https://finance.yahoo.com/quote/%5EGSPC/ 
+
+###R eferences
+*Marte, J. (2020, December 15). Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study. Reuters. Fleeing New Yorkers resulted in an estimated $34 billion in lost income -study
+
+*Richardson, B. (2021, January 26). Housing Market Gains More Value In 2020 Than In Any Year Since 2005. Forbes. https://www.forbes.com/sites/brendarichardson/2021/01/26/housing-market-gains-more-value-in-2020-than-in-any-year-since-2005/?sh=4b4ac55f4fe0
 
 
-Appendices
+###Appendices
  Data Set for Correlation, Regression, and Machine Learning Analysis
