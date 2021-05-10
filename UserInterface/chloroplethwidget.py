@@ -19,5 +19,4 @@ class chloroplethWidget(QWidget):
 
         self.canvas.axes= self.canvas.figure.add_subplot(111)
         self.canvas.ax2= self.canvas.axes.twinx()
-        #self.canvas.figure.subplots_adjust(left=0.18, right=0.9, bottom=0.16, top=0.9)
         self.setLayout(vertical_layout)

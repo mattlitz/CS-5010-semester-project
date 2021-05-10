@@ -17,15 +17,11 @@ class foliumWidget(QWidget):
         layout = QVBoxLayout(self)
 
                   
-        state_data = r'shapefiles/US_Unemployment_Oct2012.csv'
-        us_geo = r'shapefiles/us-states.json'
+        state_data = r'UserInterface/shapefiles/US_Unemployment_Oct2012.csv'
+        us_geo = r'UserInterface/shapefiles/us-states.json'
         
         df = pd.read_csv(state_data, na_values=[" "])
-
-        #df_min=pd.DataFrame()
-        #df_min=df.groupby('State', as_index=False)['Unemployment'].mean()
-        
-
+      
 
         m = folium.Map(location=[48, -102], tiles="cartodbpositron", zoom_start=3)
 

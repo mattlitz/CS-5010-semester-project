@@ -47,11 +47,10 @@ class AppMain(QMainWindow):
         
         QMainWindow.__init__(self)
 
-        loadUi(r'main.ui',self)
+        loadUi(r'UserInterface/main.ui',self)
 
         
         self.setWindowTitle("Housing Sector Exploratory Data Analysis")
-        #self.setWindowIcon(QtGui.QIcon('C:\logo.jpg'))
 
         self.calculateButton.clicked.connect(self.correlate)
    #     
@@ -59,9 +58,6 @@ class AppMain(QMainWindow):
 
         sys.stdout = EmittingStream(textWritten=self.normalOutputWritten)
        
-
-        #self.comboYearStart.addItems(year)
-        #self.comboYearEnd.addItems(year)
 
         self.start_dateEdit.date()
         self.end_dateEdit.date()
@@ -99,12 +95,12 @@ class AppMain(QMainWindow):
 
         ############INITIALIZE 4 BEDROOM DF###########################################################
         #read zip data
-        zip_df=pd.read_csv(r'data\ZIP-COUNTY-FIPS_2017-06.csv')
+        zip_df=pd.read_csv(r'UserInterface/data/ZIP-COUNTY-FIPS_2017-06.csv')
         zip_df.rename({'STCOUNTYFP': 'GEO_ID'}, axis=1, inplace=True)
         zip_df["GEO_ID"] = zip_df["GEO_ID"].astype(str)
 
         #read bedroom data and melt
-        df1=pd.read_csv(r'data\Zip_zhvi_bdrmcnt_4_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv')
+        df1=pd.read_csv(r'UserInterface/data/Zip_zhvi_bdrmcnt_4_uc_sfrcondo_tier_0.33_0.67_sm_sa_mon.csv')
        
         df1['Bedrooms'] = '1'
         df1 = pd.melt(df1, id_vars=['RegionID', 'SizeRank', 'RegionName', 'RegionType', 'StateName','State', 'City', 'Metro', 'CountyName', 'Bedrooms'], var_name='Date', value_name='price_index')#.set_index('Date')
@@ -123,6 +119,7 @@ class AppMain(QMainWindow):
         county_list=sorted(self.df1['CountyName'].unique(), key=str.lower)
         state_list=sorted(self.df1['State'].unique(), key=str.lower)
 
+        #will add link to other bedroom data sets in future version
         bedroom_list=['1','2','3','4','5']
 
         #pairplot button
@@ -133,9 +130,6 @@ class AppMain(QMainWindow):
         self.stateBox.addItems(state_list)
 
         self.bedroomBox.addItems(bedroom_list)
-
-        #pairplot button
-        #self.heatmapButton.clicked.connect(self.heatmap)
 
         #initialize correlate line chart combo boxes
         metrics=['House Price Index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','SP500','WTI_OIL','BUSLOANS','CORP_BOND','UNRATE']
@@ -164,8 +158,7 @@ class AppMain(QMainWindow):
         df_slice=self.df1[self.start_dateEdit.date().toPyDate():self.end_dateEdit.date().toPyDate()]
         #filter down to Bedroom##############
         df_pp=df_slice[(df_slice['CountyName']==''+ str(self.countyBox.currentText()) + '') & (df_slice['State']==''+ str(self.stateBox.currentText()) + '')].groupby(['CountyName','State','Bedrooms'])['House Price Index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','SP500','WTI_OIL','BUSLOANS','CORP_BOND','UNRATE'].resample('M').mean().dropna()
-        #df_pp=df_pp.reset_index(level=-1, drop=True)
-        #print(df_pp)
+        
 
         data_1 = df_pp[''+ str(self.series_1_Box.currentText()) +'']
         data_2 = df_pp[''+ str(self.series_2_Box.currentText()) +'']
@@ -189,12 +182,9 @@ class AppMain(QMainWindow):
         self.chloroplethWidget.canvas.ax2.plot(data_2, marker='.', color = 'green',label=''+ str(self.series_2_Box.currentText()) +'')
         self.chloroplethWidget.canvas.axes.legend()
         self.chloroplethWidget.canvas.ax2.legend()
-        #data_1.plot(marker='.', ax=self.chloroplethWidget.canvas.axes)
-        #data_2.plot(marker='.', color = 'green',ax=self.chloroplethWidget.canvas.ax2)
         self.chloroplethWidget.canvas.draw()
     
-        
-      
+             
 
     def pairplot(self):
        
@@ -208,36 +198,6 @@ class AppMain(QMainWindow):
         self.pairplotWidget.canvas.draw()
 
 
-    #def heatmap(self):
-       
-        ############HEATMAP FUNCTION
-        #time slice
-       # df_slice=self.df1[self.start_dateEdit.date().toPyDate():self.end_dateEdit.date().toPyDate()]
-        #filter down to Bedroom##############
-      #  df_pp=df_slice[(df_slice['CountyName']==''+ str(self.countyBox.currentText()) + '') & (df_slice['State']==''+ str(self.stateBox.currentText()) + '')].groupby(['CountyName','State','Bedrooms'])['price_index','CASE-SHILLER','CPI','M2','EFFR','30YR_MORT','PERS_SAV','10YR','Adj Close','WTI_OIL','BUSLOANS','CORP_BOND','UNRATE'].resample('M').mean().dropna()
-        
-                
-       # self.heatmapWidget.canvas.axes.cla()
-       # img=self.heatmapWidget.canvas.axes.matshow(df_pp.corr())
-        #self.heatmapWidget.canvas.axes.set_xticks(range(df_pp.select_dtypes(['number']).shape[1]), df_pp.select_dtypes(['number']).columns)
-        #self.heatmapWidget.canvas.axes.set_yticks(range(df_pp.select_dtypes(['number']).shape[1]), df_pp.select_dtypes(['number']).columns)
-        #cb=self.heatmapWidget.canvas.axes.colorbar()
-        #cb=plt.colorbar(img, ax=self.pairplotWidget.canvas.axes)
-        #self.heatmapWidget.canvas.axes.tick_params(labelsize=14)
-        #self.heatmapWidget.canvas.axes.title('Correlation Matrix', fontsize=16)
-        #self.heatmapWidget.canvas.draw()
-        #plt.show()
-        
-        #f = plt.figure(figsize=(19, 15))
-        #plt.matshow(df.corr(), fignum=f.number)
-        #plt.xticks(range(df.select_dtypes(['number']).shape[1]), df.select_dtypes(['number']).columns, fontsize=14, rotation=45)
-        #plt.yticks(range(df.select_dtypes(['number']).shape[1]), df.select_dtypes(['number']).columns, fontsize=14)
-        #cb = plt.colorbar()
-        #cb.ax.tick_params(labelsize=14)
-        #plt.title('Correlation Matrix', fontsize=16);
-
-
-
 
 class EmittingStream(QtCore.QObject):
     textWritten = QtCore.pyqtSignal(str)
@@ -247,7 +207,6 @@ class EmittingStream(QtCore.QObject):
 
 
 app=QApplication(sys.argv)
-#app.setStyle('Fusion')
 window=AppMain()
 window.show()
 sys.exit(app.exec_())
