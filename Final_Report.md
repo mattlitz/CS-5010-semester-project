@@ -24,43 +24,43 @@ The goal of this project is to give the stakeholders an idea of the correlation 
 Data Set
 The team initially set out to web scrape housing price data however quickly ran into many websites that blocked web scraping or ip banned the user after they had made so many get requests.   In lieu of these obstacles we reversed course and looked for datasets on kaggle and government websites.  Unemployment Rate, Crime Rate, S&P 500, Net Migration, and Mortgage Rate.
 
-##Response
-*Price 
-    *Home Price 
-    *8 million rows of data
-    *Quantitative discrete data 
-    *Data Source: Kaggle
+## Response
+* Price 
+    * Home Price 
+    * 8 million rows of data
+    * Quantitative discrete data 
+    * Data Source: Kaggle
     
-##Predictors 
+## Predictors 
     *Bedrooms
     *Number of bedrooms for each house
     *8 millions rows of data 
     *Quantitative discrete data with a range from 1 to 5
     *Data Source: Kaggle
 
-*Unemployment Rate    
-    *% unemployment per county from the years 2000 to 2020
-    *67599 data values with no missing data
-    *Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
-    *Data Source: Geo FRED
+* Unemployment Rate    
+    * % unemployment per county from the years 2000 to 2020
+    * 67599 data values with no missing data
+    * Quantitative continuous data with a range from 0.0% to 29.4% and mean of 6.23%
+    * Data Source: Geo FRED
 
-*Crime Rate
-    *Crime rate per 100,000 in each state from the years 2000 to 2020
-    *1050 data values with no missing data - 50 crime rates by state for 21 years
-    *Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
-    *Data Source: Crime Data Explorer
+* Crime Rate
+    * Crime rate per 100,000 in each state from the years 2000 to 2020
+    * 1050 data values with no missing data - 50 crime rates by state for 21 years
+    * Quantitative continuous data with a range from 78.2 to 891.7 and mean of 385.7
+    * Data Source: Crime Data Explorer
 
-*Number of Bedrooms
-    *Number of data values by bedroom size
-    *Over 8 million values
-    *Quantitative discrete data with a range from 1 to 5  
-    *Data Source: Kaggle 
+* Number of Bedrooms
+    * Number of data values by bedroom size
+    * Over 8 million values
+    * Quantitative discrete data with a range from 1 to 5  
+    * Data Source: Kaggle 
 
-*S&P 500
-    *Market index average for each month from 2000 to 2020
-    *252 data values with no missing data
-    *Quantitative continuous data
-    *Data Source: Yahoo Finance
+* S&P 500
+    * Market index average for each month from 2000 to 2020
+    * 252 data values with no missing data
+    * Quantitative continuous data
+    * Data Source: Yahoo Finance
 
 The following predictors were selected due to their influence on Federal Reserve monetary policy.  To join with the housing price data, the data was resampled on a monthly basis and averaged.
 *M2 Money Stock​
