@@ -63,18 +63,18 @@ The team initially set out to web scrape housing price data however quickly ran 
     * Data Source: Yahoo Finance
 
 The following predictors were selected due to their influence on Federal Reserve monetary policy.  To join with the housing price data, the data was resampled on a monthly basis and averaged.
-*M2 Money Stock​
-*S&P/Case-Shiller U.S. National Home Price Index​
-*Consumer Price Index for All Urban Consumers: All Items in U.S. City Average​
-*Effective Federal Funds Rate​
-*10-Year Treasury Constant Maturity Rate​
-*US Unemployment Rate​
-*Crime Rates​
-*30-Year Fixed Rate Mortgage Average in the United States​
-*Personal Saving Rate of US Households​
-*Crude Oil Prices: West Texas Intermediate (WTI)​
-*Commercial and Industrial Loans, All Commercial Banks​
-*Moody's Seasoned Aaa Corporate Bond Yield
+* M2 Money Stock​
+* S&P/Case-Shiller U.S. National Home Price Index​
+* Consumer Price Index for All Urban Consumers: All Items in U.S. City Average​
+* Effective Federal Funds Rate​
+* 10-Year Treasury Constant Maturity Rate​
+* US Unemployment Rate​
+* Crime Rates​
+* 30-Year Fixed Rate Mortgage Average in the United States​
+* Personal Saving Rate of US Households​
+* Crude Oil Prices: West Texas Intermediate (WTI)​
+* Commercial and Industrial Loans, All Commercial Banks​
+* Moody's Seasoned Aaa Corporate Bond Yield
 
 # Data Cleaning 
 
