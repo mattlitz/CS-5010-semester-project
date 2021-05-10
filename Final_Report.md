@@ -80,9 +80,13 @@ The following predictors were selected due to their influence on Federal Reserve
 
 Most of our data sets came from government agencies and were often reporting at the state/county level so there was rarely if ever a missing value in these data sets. The “Unemployment data set'' had a different column for each data hence the pandas function melt() was needed to collapse all of the dated columns into one date column.  The crime data set consisted of 50 csv files for each of the states and the glob library was very useful to iterate through all the files and concatenate them into one file.  Our housing data had many missing rows that had to be removed. Ultimately all the data sets were combined into one data set using the pandas merge function on the attributes “CountyName”, “State”, and “Date”.
 Software Design
+
 Our approach to analyzing this data set consisted of 3 stages.  First we would import and explore the dataset with our user interface that utilizes multi-predictor pair plots and correlations to identify predictors of interest.  Next after potential predictors are identified, we further explored their relationship to housing prices by performing an in-depth linear regression analysis.  Finally we developed machine learning methods to predict future prices of house given a set of predictors.
-Our team developed an application that focuses on exploratory data analysis of the data set for users to examine regions of the United States. With so many potential predictors by which to predict future housing prices, the first step presents a pairplot (“PairPlot” tab) to examine pairwise relationships in the whole dataset.  A second graph is provided to perform a more extensive analysis of the relationship between two predictors in the “Correlation Line Plot” tab.  The python system output is routed to  the “Output” field in the main screen for users to review the Pearson Correlation coefficient of the two data series analyzed.  Dropdown menus are provided to select the start and stop periods of the timeframe under analysis.  The granularity of this application currently goes to the US county level.  PyQt was selected as the API to build the user interface.  In the future, this application would combine the regression analysis into the application.   
+
+Our team developed an application that focuses on exploratory data analysis of the data set for users to examine regions of the United States. With so many potential predictors by which to predict future housing prices, the first step presents a pairplot (“PairPlot” tab) to examine pairwise relationships in the whole dataset.  A second graph is provided to perform a more extensive analysis of the relationship between two predictors in the “Correlation Line Plot” tab.  The python system output is routed to  the “Output” field in the main screen for users to review the Pearson Correlation coefficient of the two data series analyzed.  Dropdown menus are provided to select the start and stop periods of the timeframe under analysis.  The granularity of this application currently goes to the US county level.  PyQt was selected as the API to build the user interface.  In the future, this application would combine the regression analysis into the application. 
+
     In the second stage, we calculated the Pearson correlation between S&P500 and Zillow House Price Index (ZHPI) for a particular year and for a particular State, Zip, City or County. Correlation was also calculated between the Crime Rate and (ZHPI) and Unemployment rate and (ZHPI) for the last decade. The correlation calculation was accompanied with several plots to visualize the behavior of the correlation. The datasets were converted to data frames , aggregated, filtered, and list of values were deducted to get the list of values from two dataframes and the correlation was calculated. The python packages of Pandas, Matplotlib and seaborn were utilized to perform data processing and visualization. 
+    
 In the third stage we have a linear regression, multilinear regression, and machine learning function.  The linear regression takes our 5 predictors and creates a linear regression equation for each. The multilinear regression equation allows the user to choose the county that the equation outputs to as well as needing the inputs so it can predict the house value of those inputs.  Finally the machine learning model uses a training/test data set to check accuracy of predictions.
 
 Figure 1: Screenshot of Housing Sector Exploratory Data Analysis user interface.
@@ -199,21 +203,21 @@ Single Linear Regression Model
 
 
 ### Linear Regression Analysis per  Predictor:
-S&P 500
-Y = 162248 + 38X
-The predictor and the response have a direct relationship
-Bedrooms
-Y = 4536 + 68705X
-The predictor and the response have a direct relationship
-30 Year Mortgage Rate
-Y = 241703 - 467X
-The predictor and the response have an inverse relationship
-Crime Rate
-Y= 315113 -12238X
-The predictor and the response have an inverse relationship
-Unemployment Rate
-Y=187650 + 146X
-The predictor and the response have a direct relationship
+* S&P 500
+   * Y = 162248 + 38X
+   * The predictor and the response have a direct relationship
+* Bedrooms
+   * Y = 4536 + 68705X
+   * The predictor and the response have a direct relationship
+* 30 Year Mortgage Rate
+   * Y = 241703 - 467X
+   * The predictor and the response have an inverse relationship
+* Crime Rate
+   * Y= 315113 -12238X
+   * The predictor and the response have an inverse relationship
+* Unemployment Rate
+   * Y=187650 + 146X
+   * The predictor and the response have a direct relationship
 
 All of our predictors had the expected relationship except “Unemployment Rate”.  One would expect as the “Unemployment Rate” increases the housing prices would go down.   This will need further analysis however a possible explanation could be that if the rate goes up people are less likely to move hence decreasing the supply of houses on the market causing an increase in the price. It should be noted that the coefficient is very small.
 Multi Linear Regression Model
