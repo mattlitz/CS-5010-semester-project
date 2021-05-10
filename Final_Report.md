@@ -5,32 +5,7 @@ Matthew Litz, Abhijeet Chawhan, Abhishek Bada
 
 
 
-Table Of Contents
 
-Introduction    1
-Github link    2
-Goals    2
-Project Scope    2
-Data Set    2
-Response    3
-Predictors    3
-Data Cleaning    4
-Software Design    4
-Case Study    6
-Stage 1:  Exploratory Data Analysis    6
-Stage 2:  Correlation Analysis    8
-Stage 3:  Prediction Model    16
-Single Linear Regression Model    16
-Multi Linear Regression Model    17
-Machine Learning Model    17
-Functional/Non-Functional Requirements    18
-Testing    19
-Beyond the original specifications    20
-Conclusions    20
-Next Steps    20
-Data Set References    21
-References    21
-Appendices    22
 
 # Introduction
 During the COVID pandemic, the size of the US housing market increased dramatically as buyers were enticed by record lower interest rates.  This market piqued our interest and drove us to see what relationships whether economically, socially , and even geographically affected the housing market.
