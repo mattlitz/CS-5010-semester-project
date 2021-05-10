@@ -48,7 +48,7 @@ class foliumWidget(QWidget):
             fill_color="YlGnBu",
             fill_opacity=0.7,
             line_opacity=0.5,
-            legend_name="Unemployment Rate (%)",
+            legend_name="Median Home Price",
             bins=bins,
             #reset=True,
         ).add_to(m)
